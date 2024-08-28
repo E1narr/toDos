@@ -1,8 +1,13 @@
 import React from "react";
-import MainToDo from "./MainToDo";
+import Quiz from "./components/quiz/Quiz";
+import { Box } from "@mui/material";
 
-function App() {
-  return <MainToDo />;
-}
+const App: React.FC = () => {
+  return (
+    <Box sx={{ display: "flex" }}>
+      <Quiz />
+    </Box>
+  );
+};
 
 export default App;
