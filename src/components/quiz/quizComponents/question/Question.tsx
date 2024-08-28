@@ -8,7 +8,7 @@ type QuestionProps = {
   onAnswerChange: (questionId: number, answerId: number) => void;
 };
 
-const Question: React.FC<QuestionProps> = ({
+export const Question: React.FC<QuestionProps> = ({
   question,
   selectedAnswers,
   onAnswerChange,
@@ -41,5 +41,3 @@ const Question: React.FC<QuestionProps> = ({
     </Box>
   );
 };
-
-export default Question;

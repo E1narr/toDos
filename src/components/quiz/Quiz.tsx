@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from "react";
-import Question from "./quizComponents/question/Question";
 import { QuestionType } from "./questionTipes/types";
 import { initialQuestions } from "./questionData/questionList";
 import { Box, Button } from "@mui/material";
 import CustomStepper from "./quizComponents/stepper/Stepper";
 import Timer from "./quizComponents/timer/Timer";
+import { Question } from "./quizComponents/question";
 
 const Quiz: React.FC = () => {
   const [questions] = useState<QuestionType[]>(initialQuestions);
