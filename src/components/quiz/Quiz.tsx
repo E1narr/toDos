@@ -1,3 +1,4 @@
+// src/components/quiz/Quiz.tsx
 import React, { useState, useCallback } from "react";
 import { QuestionType } from "./questionTipes/types";
 import { initialQuestions } from "./questionData/questionList";
@@ -5,6 +6,7 @@ import { Box, Button } from "@mui/material";
 import CustomStepper from "./quizComponents/stepper/Stepper";
 import Timer from "./quizComponents/timer/Timer";
 import { Question } from "./quizComponents/question";
+import { ResultsTable } from "./quizComponents/resultsTable";
 
 const Quiz: React.FC = () => {
   const [questions] = useState<QuestionType[]>(initialQuestions);
@@ -27,6 +29,7 @@ const Quiz: React.FC = () => {
     if (nextNumber >= questions.length) {
       setShowResults(true);
       setTimerStop(true);
+      saveResults(); // Сохраняем результаты при окончании теста
     } else {
       setQuestionNumber(nextNumber);
     }
@@ -45,9 +48,28 @@ const Quiz: React.FC = () => {
     return score;
   };
 
+  const saveResults = () => {
+    const username = localStorage.getItem("loggedInUser");
+    if (username) {
+      const currentResults = JSON.parse(
+        localStorage.getItem("results") || "[]"
+      );
+      const newResult = {
+        username,
+        score: calculateScore(),
+      };
+      localStorage.setItem(
+        "results",
+        JSON.stringify([...currentResults, newResult])
+      );
+    }
+  };
+
   const [timerStop, setTimerStop] = useState(false);
   const handleTimeUp = useCallback(() => {
     setShowResults(true);
+    setTimerStop(true);
+    saveResults();
   }, []);
 
   return (
@@ -99,6 +121,7 @@ const Quiz: React.FC = () => {
           <p>
             Правильных: {calculateScore()} / {questions.length}
           </p>
+          <ResultsTable />
         </Box>
       )}
     </Box>

@@ -1,3 +1,4 @@
+// src/App.tsx
 import React, { useState } from "react";
 import Quiz from "./components/quiz/Quiz";
 import { Box } from "@mui/material";
@@ -7,8 +8,10 @@ const App: React.FC = () => {
   const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
 
   const handleLogin = (username: string) => {
+    localStorage.setItem("loggedInUser", username); // Сохраняем имя пользователя
     setLoggedInUser(username);
   };
+
   return (
     <Box sx={{ display: "flex", height: "100vh", width: "100vw" }}>
       {loggedInUser ? (
